@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <script src="js/bootstrap.min.js"></script>
+  <!-- Custom styles -->
+  <link rel="stylesheet" href="css/style.css">
+
+  <title>Thermostat</title>
+</head>
+<body>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <h1>Thermostat</h1>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-8">
+        <div id="temperature" class="temperature">
+          20 &deg;C
+        </div>
+        <div id="power-saving-mode">
+          <h3>Power Saving Mode is on</h3>
+        </div>
+      </div>
+      <div class="col-4">
+        <h2 class="m-3">Controls</h2>
+        <h5 class="m-3">Temperature Controls</h5>
+        <div class="m-3">
+          <button class="btn btn-danger">+</button>
+          <button class="btn btn-primary">-</button>
+        </div>
+        <div class="mx-3 mt-3 mb-5">
+          <button class="btn btn-secondary">Reset</button>
+        </div>
+        <h5 class="m-3">Power Saving Mode</h5>
+        <div class="m-3">
+          <button class="btn btn-success">On</button>
+          <button class="btn btn-secondary">Off</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <script src="src/thermostat.js"></script>
+</body>
+</html>
