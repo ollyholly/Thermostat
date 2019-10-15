@@ -1,28 +1,35 @@
 $(document).ready(function () {
   let thermostat = new Thermostat;
-  $('#temperature').text(thermostat.getCurrentTemperature());
 
-  $('#up').click(function () { 
+  function updateTemperature() {
+    $('#temperature').text(thermostat.getCurrentTemperature());
+    $('#temperature').attr('class', thermostat.energyUsage());
+  }
+
+  updateTemperature();
+
+
+  $('#up').click(function () {
     thermostat.up();
-    $('#temperature').text(thermostat.getCurrentTemperature());
+    updateTemperature();
   });
 
-  $('#down').click(function () { 
+  $('#down').click(function () {
     thermostat.down();
-    $('#temperature').text(thermostat.getCurrentTemperature());
+    updateTemperature();
   });
 
-  $('#reset').click(function () { 
+  $('#reset').click(function () {
     thermostat.reset();
-    $('#temperature').text(thermostat.getCurrentTemperature());
+    updateTemperature();
   });
 
-  $('#pwm-on').click(function () { 
+  $('#pwm-on').click(function () {
     thermostat.switchPSMOn();
     $('#pwm-status').text(thermostat.PSMStatus());
   });
-  
-  $('#pwm-off').click(function () { 
+
+  $('#pwm-off').click(function () {
     thermostat.switchPSMOff();
     $('#pwm-status').text(thermostat.PSMStatus());
   });
