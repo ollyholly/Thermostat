@@ -72,6 +72,28 @@ describe('Thermostat', () => {
     expect(thermostat.getCurrentTemperature()).toEqual(20);
   });
 
+  describe('energy usage', () => {
+    
+    it('returns low-usage when temperature is below 18C', () => {
+      for (let temp = 20; temp >= 17; temp--) {
+        thermostat.down();
+      }
+      expect(thermostat.energyUsage()).toEqual('low-usage');
+    });
 
+    it('returns high-usage when temperature is above 25C', () => {
+      thermostat.switchPSMOff();
+      for (let temp = 20; temp <= 25; temp++) {
+        thermostat.up();
+      }
+      expect(thermostat.energyUsage()).toEqual('high-usage');
+    });
+   
+    it('returns medium-usage when temperature is between 18C and 24C inclusive', () => {
+      expect(thermostat.energyUsage()).toEqual('medium-usage');
+    });
+
+
+  });
 
 });
