@@ -46,6 +46,14 @@ class Thermostat {
     this.powerSavingMode = true;
   }
 
+  PSMStatus() {
+    if (this.powerSavingMode === true) {
+      return "on"
+    } else {
+      return "off"
+    }
+  }
+
   getMaxTemperature() {
     if (this.isPowerSavingMode() === true) {
       return this.MAX_TEMPERATURE_PSM_ON;
