@@ -1,52 +1,53 @@
 $(document).ready(function () {
   let thermostat = new Thermostat;
 
-  updateTemperature();
-  // updateUsage();
+  // updateTemperature();
+  // updatePSM();
 
-  $.get('http://localhost:4567/get-temp', function(data) {
+  $.get('http://localhost:4567/temperature', function(data) {
     thermostat.temperature = parseInt(data);
-    console.log(data);
     updateTemperature();
-  });
+  })
 
-  // function sendState() {
-  //   var send = {temperature: thermostat.temperature};
-  //   $.post('http://localhost:4567/retrieve', send);
-  // };
-
-
-  function updateTemperature() {
-    $('#temperature').text(thermostat.getCurrentTemperature());
-    $('#temperature').attr('class', thermostat.energyUsage());
-  }
-
-  updateTemperature();
-
+  $.get('http://localhost:4567/psm', function(data) {
+    thermostat.powerSavingMode = data;
+    console.log("psm " + thermostat.powerSavingMode);
+    console.log("Status "+ thermostat.PSMStatus());
+    console.log("GET " + data);
+    updatePSM();
+    console.log("Status "+ thermostat.PSMStatus());
+  })
 
   $('#up').click(function () {
     thermostat.up();
     updateTemperature();
+    sendTemperature();
   })
 
   $('#down').click(function () {
     thermostat.down();
     updateTemperature();
+    sendTemperature();
   })
 
   $('#reset').click(function () {
     thermostat.reset();
     updateTemperature();
+    sendTemperature();
   })
 
-  $('#pwm-on').click(function () {
+  $('#psm-on').click(function () {
     thermostat.switchPSMOn();
-    $('#pwm-status').text(thermostat.PSMStatus());
+    updatePSM();
+    sendPSM();
+    console.log(thermostat.powerSavingMode);
   })
 
-  $('#pwm-off').click(function () {
+  $('#psm-off').click(function () {
     thermostat.switchPSMOff();
-    $('#pwm-status').text(thermostat.PSMStatus());
+    updatePSM();
+    sendPSM();
+    console.log(thermostat.powerSavingMode);
   })
 
   $.get('http://api.openweathermap.org/data/2.5/weather?q=London&appid=08cbc1ed2f21191b044690a5e06c9dde&units=metric', function(data) {
@@ -56,10 +57,27 @@ $(document).ready(function () {
   $('#current-city').change(function() {
     var city = $('#current-city').val();
     $.get('http://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid=08cbc1ed2f21191b044690a5e06c9dde&units=metric', function(data) {
-    $('#current-temperature').text(data.main.temp)
+    $('#current-temperature').text(data.main.temp);
     })
   })
 
+  function sendTemperature() {
+    var temperature = {temperature: thermostat.temperature};
+    $.post('http://localhost:4567/temperature', temperature);
+  };
 
+  function sendPSM() {
+    var psm = {psm: thermostat.powerSavingMode};
+    $.post('http://localhost:4567/psm', psm);
+  };
+
+  function updateTemperature() {
+    $('#temperature').text(thermostat.getCurrentTemperature());
+    $('#temperature').attr('class', thermostat.energyUsage());
+  };
+
+  function updatePSM() {
+    $('#psm-status').text(thermostat.PSMStatus());
+  };
 
 });

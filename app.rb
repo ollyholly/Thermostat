@@ -1,38 +1,33 @@
 require 'sinatra'
 require 'sinatra/activerecord'
 require 'json'
+require './lib/thermostat'
 
 set :database_file, 'config/database.yml'
 
-class Thermostat < Sinatra::Base
+class ThermostatApp < Sinatra::Base
   register Sinatra::ActiveRecordExtension
 
-  get '/get-temp' do
+  get '/temperature' do
     headers 'Access-Control-Allow-Origin' => '*'
-    25.to_json
-    # @temperature = Thermostat.find(1).temperature
-    # @temperature.to_json
+    Thermostat.find(1).temperature.to_json
   end
 
-  # post "/save-temp" do
-  #   headers 'Access-Control-Allow-Origin' => '*'
-  #   p params[:temperature]
-  #   save_temp(temperature: params[:temperature])
+  get '/psm' do
+    headers 'Access-Control-Allow-Origin' => '*'
+    Thermostat.find(1).psm.to_json
+  end
 
-  # end
+  post '/psm' do
+    headers 'Access-Control-Allow-Origin' => '*'
+    p params[:psm]
+    Thermostat.find(1).update_attribute(:psm, params[:psm])
+  end
 
-  # def save_temp(temperature:)
-  #   connection = PG.connect(dbname: "thermostat")
-  #   connection.exec("TRUNCATE TABLE state;")
-  #   connection.exec("INSERT INTO state (temperature) VALUES(#{temperature});")
-  # end
-
-  # def get_temperature
-  #   connection = PG.connect(dbname: "thermostat")
-  #   temp = connection.exec("SELECT temperature FROM state;").first
-  #   temp["temperature"].to_i
-  # end
+  post '/temperature' do
+    headers 'Access-Control-Allow-Origin' => '*'
+    Thermostat.find(1).update_attribute(:temperature, params[:temperature])
+  end
 
   run! if app_file == $0
 end
-
