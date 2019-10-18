@@ -1,21 +1,14 @@
 $(document).ready(function () {
   let thermostat = new Thermostat;
 
-  // updateTemperature();
-  // updatePSM();
-
   $.get('http://localhost:4567/temperature', function(data) {
     thermostat.temperature = parseInt(data);
     updateTemperature();
   })
 
   $.get('http://localhost:4567/psm', function(data) {
-    thermostat.powerSavingMode = data;
-    console.log("psm " + thermostat.powerSavingMode);
-    console.log("Status "+ thermostat.PSMStatus());
-    console.log("GET " + data);
+    thermostat.powerSavingMode = JSON.parse(data);
     updatePSM();
-    console.log("Status "+ thermostat.PSMStatus());
   })
 
   $('#up').click(function () {
@@ -41,13 +34,18 @@ $(document).ready(function () {
     updatePSM();
     sendPSM();
     console.log(thermostat.powerSavingMode);
+    console.log("psm variable: " + thermostat.powerSavingMode);
+    console.log(thermostat.powerSavingMode == true);
+    console.log("Status: "+ thermostat.PSMStatus());
   })
 
   $('#psm-off').click(function () {
     thermostat.switchPSMOff();
     updatePSM();
     sendPSM();
-    console.log(thermostat.powerSavingMode);
+    console.log("psm variable: " + thermostat.powerSavingMode);
+    console.log(thermostat.powerSavingMode == true);
+    console.log("Status: "+ thermostat.PSMStatus());
   })
 
   $.get('http://api.openweathermap.org/data/2.5/weather?q=London&appid=08cbc1ed2f21191b044690a5e06c9dde&units=metric', function(data) {
