@@ -13,6 +13,11 @@ class ThermostatApp < Sinatra::Base
     Thermostat.find(1).temperature.to_json
   end
 
+  post '/temperature' do
+    headers 'Access-Control-Allow-Origin' => '*'
+    Thermostat.find(1).update_attribute(:temperature, params[:temperature])
+  end
+
   get '/psm' do
     headers 'Access-Control-Allow-Origin' => '*'
     Thermostat.find(1).psm.to_json
@@ -20,13 +25,18 @@ class ThermostatApp < Sinatra::Base
 
   post '/psm' do
     headers 'Access-Control-Allow-Origin' => '*'
-    p params[:psm]
     Thermostat.find(1).update_attribute(:psm, params[:psm])
   end
 
-  post '/temperature' do
+  get '/city' do
     headers 'Access-Control-Allow-Origin' => '*'
-    Thermostat.find(1).update_attribute(:temperature, params[:temperature])
+    Thermostat.find(1).city.to_json
+  end
+
+  post '/city' do
+    headers 'Access-Control-Allow-Origin' => '*'
+    params[:city]
+    Thermostat.find(1).update_attribute(:city, params[:city])
   end
 
   run! if app_file == $0

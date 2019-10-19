@@ -25,10 +25,10 @@
       <div class="col-8 ">
         <div class="temperature"><span id="temperature" class="usage">20</span> &deg;C</div>
 
-        <div id="power-saving-mode">
+        <!-- <div id="power-saving-mode">
           <h3>Power Saving Mode is <span id="psm-status"></span></h3>
-        </div>
-        <div> <h3> Current temperature in London: <span id="current-temperature"></span> &deg;C</h3></div>
+        </div> -->
+        <div> <h4> Temperature outside: <span id="current-temperature"></span> &deg;C</h4></div>
 
           <div class="form-group">
     <label for="current-city">Select city</label>
@@ -54,13 +54,14 @@
         </div>
         <h5 class="m-3">Power Saving Mode</h5>
         <div class="m-3">
-          <button class="btn btn-success" id="psm-on">On</button>
-          <button class="btn btn-secondary" id="psm-off">Off</button>
+          <div class="custom-control custom-switch">
+            <input type="checkbox" class="custom-control-input" id="customSwitch1">
+            <label class="custom-control-label" for="customSwitch1"></label>
+          </div>
         </div>
       </div>
     </div>
   </div>
-
   <script src="src/thermostat.js"></script>
   <script src="js/interface.js"></script>
 </body>

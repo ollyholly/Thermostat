@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_17_182323) do
+ActiveRecord::Schema.define(version: 2019_10_18_132733) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 2019_10_17_182323) do
   create_table "thermostats", force: :cascade do |t|
     t.integer "temperature", default: 20
     t.boolean "psm", default: true
+    t.text "city"
   end
 
 end
